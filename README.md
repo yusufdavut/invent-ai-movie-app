@@ -62,17 +62,18 @@ Sunucuyu çalıştırın
   npm run dev
 ```
 
-## Important!
-
-https://developer.themoviedb.org/docs/getting-started
-
-Subscribe to this site and get an api key and use it in the "access_token" value. Otherwise it won't work
-
 ## Used Technologies
 
-**Client:** React, NextJS, TailwindCSS, Framer Motion
+**Client:** React, TypeScript, TailwindCSS
 
-**Server:** https://developer.themoviedb.org/reference/movie-popular-list
+**Server:** https://www.omdbapi.com/
+
+## Features
+
+- When the project is first opened, items are listed filtered by "Pokemon."
+- This listing is paginated, displaying 10 items per page.
+- At the top of the list, there is a search functionality that allows filtering by movie title, year, and type.
+- Clicking on any item navigates to a detail page where the selected data can be examined more thoroughly.
 
 ## Lisans
 
