@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Movie, MovieDetail } from "../models/movie";
 import { searchByMovieName } from "../api/movies";
 
@@ -8,17 +7,27 @@ interface FilterAreaProps {
     React.SetStateAction<Movie[] | MovieDetail[]>
   >;
   setTotalResults: React.Dispatch<React.SetStateAction<number>>;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedYear: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedType: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  searchText: string;
+  selectedYear: string;
+  selectedType: string;
 }
 
 export default function FilterArea({
   setFilteredData,
   setSuccess,
   setTotalResults,
+  setSearchText,
+  setSelectedYear,
+  setSelectedType,
+  setCurrentPage,
+  searchText,
+  selectedYear,
+  selectedType,
 }: FilterAreaProps) {
-  const [searchText, setSearchText] = useState<string>("Pokemon");
-  const [selectedYear, setSelectedYear] = useState<string>("");
-  const [selectedType, setSelectedType] = useState<string>("");
-
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       handleSearch();
@@ -26,6 +35,7 @@ export default function FilterArea({
   };
 
   const handleSearch = async () => {
+    setCurrentPage(1);
     const result = await searchByMovieName(
       searchText,
       selectedYear,
@@ -45,11 +55,12 @@ export default function FilterArea({
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-2">
         <input
-          className="border border-gray-300 px-2 py-1 bg-transparent outline-none rounded"
+          className="border border-gray-300 px-2 py-1 bg-transparent outline-none rounded w-[120px] sm:w-full"
           type="text"
           name="search"
           id="search"
           placeholder="Search Movie"
+          value={searchText}
           onKeyDown={handleKeyDown}
           onChange={(e) => setSearchText(e.target.value)}
         />

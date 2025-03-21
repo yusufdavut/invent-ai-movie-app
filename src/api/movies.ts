@@ -43,13 +43,15 @@ export const fetchByImdbId = async (
 export const searchByMovieName = async (
   name: string,
   year?: string,
-  type?: string
+  type?: string,
+  page?: number = 1
 ): Promise<{ movies: MovieDetail[]; totalResults: number } | null> => {
   try {
     const url = new URL(`${BASE_URL}${API_KEY}`);
     url.searchParams.append("s", name);
     if (year) url.searchParams.append("y", year);
     if (type) url.searchParams.append("type", type);
+    if (page) url.searchParams.append("Page", page.toString());
 
     const response = await fetch(url.toString());
 

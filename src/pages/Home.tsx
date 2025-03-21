@@ -3,10 +3,10 @@ import { Movie } from "../models/movie";
 import { fetchData } from "../api/movies";
 import FilterArea from "../components/FilterArea";
 import MovieCard from "../components/MovieCard";
-//import Pagination from "../components/Pagination";
 import debounce from "lodash.debounce";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
+import Pagination from "../components/Pagination";
 
 export default function Home() {
   const [data, setData] = useState<Movie[]>();
@@ -22,14 +22,18 @@ export default function Home() {
   const pageFromUrl = Number(searchParams.get("Page")) || 1;
   const [currentPage, setCurrentPage] = useState(pageFromUrl);
 
+  const [searchText, setSearchText] = useState<string>("Pokemon");
+  const [selectedYear, setSelectedYear] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
+
   useEffect(() => {
     setCurrentPage(pageFromUrl);
   }, [pageFromUrl]);
 
   const fetchMovies = useCallback(
-    debounce(async (page: number) => {
+    debounce(async () => {
       setLoading(true);
-      const result = await fetchData(page);
+      const result = await fetchData();
       setData(result?.movies || []);
       setTotalResults(result?.totalResults || 0);
       setLoading(false);
@@ -38,34 +42,14 @@ export default function Home() {
   );
 
   useEffect(() => {
-    fetchMovies(currentPage);
-  }, [currentPage, fetchMovies]);
+    fetchMovies();
+  }, [fetchMovies]);
 
   const updateUrl = (newPage: number) => {
     navigate(`?Page=${newPage}`, { replace: true });
   };
 
-  const itemsPerPage = 10;
-
-  const currentData =
-    filteredData?.length > 0
-      ? filteredData.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        )
-      : data;
-
-  const totalPages = totalResults / itemsPerPage;
-  console.log({ totalPages });
-
-  useEffect(() => {
-    if (filteredData) {
-      setCurrentPage(1);
-      updateUrl(1);
-    }
-  }, [filteredData]);
-
-  console.log({ currentData });
+  const currentData = filteredData?.length > 0 ? filteredData : data;
 
   return (
     <main className="py-10 px-6 2xl:px-0">
@@ -75,6 +59,13 @@ export default function Home() {
           setFilteredData={setFilteredData}
           setSuccess={setSuccess}
           setTotalResults={setTotalResults}
+          setSearchText={setSearchText}
+          setSelectedYear={setSelectedYear}
+          setSelectedType={setSelectedType}
+          setCurrentPage={setCurrentPage}
+          searchText={searchText}
+          selectedYear={selectedYear}
+          selectedType={selectedType}
         />
         {loading && <LoadingSpinner />}
         {!success && <p>The film you are looking for was not found</p>}
@@ -87,7 +78,22 @@ export default function Home() {
             ))}
         </div>
 
-        {/* <Pagination /> */}
+        <Pagination
+          totalResults={totalResults}
+          currentPage={currentPage}
+          setCurrentPage={(page) => {
+            setCurrentPage((prev) => {
+              const newPage = typeof page === "function" ? page(prev) : page;
+              updateUrl(newPage);
+              return newPage;
+            });
+          }}
+          searchText={searchText}
+          selectedYear={selectedYear}
+          selectedType={selectedType}
+          setFilteredData={setFilteredData}
+          setTotalResults={setTotalResults}
+        />
       </div>
     </main>
   );
