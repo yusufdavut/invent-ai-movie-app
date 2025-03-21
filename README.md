@@ -1,54 +1,79 @@
-# React + TypeScript + Vite
+# MOVIE APP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeyi klonlayın
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+  git clone https://link-to-project
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Proje dizinine gidin
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+  cd my-project
 ```
+
+Gerekli paketleri yükleyin
+
+```bash
+  npm install
+```
+
+Sunucuyu çalıştırın
+
+```bash
+  npm run dev
+```
+
+## Kullanılan Teknolojiler
+
+**İstemci:** React, TypeScript, TailwindCSS
+
+**Sunucu:** https://www.omdbapi.com/
+
+## Özellikler
+
+- Proje ilk açıldığında "Pokemon" ile filtreli şekilde listelenen
+  item'lar.
+- Bu listelemede pagination ile 10'arlı şekildedir.
+- Listelemenin en üstünde hem film adı, hem yılı ve hem de tipine
+  göre arama imkanı mevcuttur.
+- Herhangi bir item'a tıklandığında ise detay sayfasına giderek
+  ilgili veri daha detaylı incelenebilmektedir.
+
+## Lisans
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Run it on your computer
+
+```bash
+  git clone https://link-to-project
+```
+
+```bash
+  cd my-project
+```
+
+```bash
+  npm install
+```
+
+```bash
+  npm run dev
+```
+
+## Important!
+
+https://developer.themoviedb.org/docs/getting-started
+
+Subscribe to this site and get an api key and use it in the "access_token" value. Otherwise it won't work
+
+## Used Technologies
+
+**Client:** React, NextJS, TailwindCSS, Framer Motion
+
+**Server:** https://developer.themoviedb.org/reference/movie-popular-list
+
+## Lisans
+
+[MIT](https://choosealicense.com/licenses/mit/)
